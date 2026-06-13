@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+const posts = await getCollection('blog');
+
+const tagMap = new Map<string, number>();
+for (const post of posts) {
+	for (const tag of post.data.tags ?? []) {
+		tagMap.set(tag, (tagMap.get(tag) ?? 0) + 1);
+	}
+}
+
+const tags = [...tagMap.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`Tags | ${SITE_TITLE}`} description="All post tags" />
+		<style>
+			.tag-grid {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75em;
+				margin-top: 1.5em;
+			}
+			.tag-entry {
+				display: flex;
+				align-items: center;
+				gap: 0.4em;
+			}
+			.tag-count {
+				color: var(--text-muted);
+				font-size: 0.8em;
+			}
+			.tag-pill {
+				font-size: 1em;
+				padding: 0.3em 0.9em;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Tags</h1>
+			{tags.length === 0 ? (
+				<p>No tags yet.</p>
+			) : (
+				<div class="tag-grid">
+					{tags.map(([tag, count]) => (
+						<div class="tag-entry">
+							<a class="tag-pill" href={`/tags/${tag}`}>{tag}</a>
+							<span class="tag-count">{count}</span>
+						</div>
+					))}
+				</div>
+			)}
+		</main>
+		<Footer />
+	</body>
+</html>
