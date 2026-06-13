@@ -1,63 +1,62 @@
-# Astro Starter Kit: Blog
+# 个人博客
 
-```sh
-npm create astro@latest -- --template blog
+基于 [Astro](https://astro.build) 搭建的个人博客，部署在 Cloudflare Pages。
+
+## 功能
+
+- 文章标签与分类
+- 全文搜索（Pagefind）
+- 明暗主题切换（跟随系统 + 手动）
+- RSS 订阅
+- Sitemap 自动生成
+- 响应式布局
+
+## 目录结构
+
+```
+src/
+├── components/     # 公共组件
+├── content/blog/   # Markdown 文章
+├── layouts/        # 页面布局
+├── pages/          # 路由页面
+└── styles/         # 全局样式
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 本地开发
 
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+```bash
+pnpm install
+pnpm dev        # 启动开发服务器 http://localhost:4321
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 构建
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```bash
+pnpm build      # 构建 + 生成搜索索引
+pnpm preview    # 本地预览构建产物
+```
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+> Node.js 版本要求 >= 22.12.0，项目通过 `.npmrc` 的 `use-node-version` 自动管理，无需手动切换。
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 写文章
 
-## 🧞 Commands
+在 `src/content/blog/` 下新建 `.md` 或 `.mdx` 文件，frontmatter 格式：
 
-All commands are run from the root of the project, from a terminal:
+```yaml
+---
+title: '文章标题'
+description: '文章简介'
+pubDate: '2026-01-01'
+tags: ['技术', 'web']
+---
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## 部署到 Cloudflare Pages
 
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+1. 将仓库推送到 GitHub
+2. Cloudflare Dashboard → Pages → Connect to Git → 选择此仓库
+3. 构建配置：
+   - Build command: `pnpm build`
+   - Build output: `dist`
+4. 环境变量：`NODE_VERSION = 22.22.0`
+5. 部署完成后更新 `astro.config.mjs` 中的 `site` 为实际域名
