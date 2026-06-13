@@ -56,7 +56,7 @@ tags: ['技术', 'web']
 1. 将仓库推送到 GitHub
 2. Cloudflare Dashboard → Pages → Connect to Git → 选择此仓库
 3. 构建配置：
-   - Build command: `pnpm build`
+   - Build command: `pnpm run build`
    - Build output: `dist`
 4. 环境变量：`NODE_VERSION = 22.22.0`
 5. 部署完成后更新 `astro.config.mjs` 中的 `site` 为实际域名
