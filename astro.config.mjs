@@ -6,7 +6,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://your-blog.pages.dev', // 部署后替换为实际域名
+	site: 'https://blog.ricklxf.top',
 	integrations: [mdx(), sitemap()],
 	fonts: [
 		{

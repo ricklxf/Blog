@@ -1,5 +1,7 @@
 # 个人博客
 
+**[blog.ricklxf.top](https://blog.ricklxf.top)**
+
 基于 [Astro](https://astro.build) 搭建的个人博客，部署在 Cloudflare Pages。
 
 ## 功能
